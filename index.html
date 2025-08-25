@@ -8,21 +8,19 @@
 </head>
 <body>
   <div class="center" id="dynamic-text"></div>
-  <div class="center" id="dynamic-text1"></div>
-  
+  <div class="footer-text" id="footer-text"></div>
 
   <script>
-   
-    fetch('text.txt?t=' + Date.now())
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('dynamic-text').textContent = text.trim();
+    fetch('data.json?t=' + Date.now(), { cache: "no-store" })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('dynamic-text').textContent = data.mainText;
+        document.getElementById('footer-text').textContent = data.footerText;
       })
       .catch(() => {
         document.getElementById('dynamic-text').textContent = 'تعذر تحميل النص';
+        document.getElementById('footer-text').textContent = 'تعذر تحميل النص الأخير';
       });
-
-     
   </script>
 </body>
 </html>
